@@ -35,8 +35,9 @@ function App() {
     setTopic(newTopic);
     setPhotos([]);
     setErrorMsg(false);
-    setLoader(true);
+
     try {
+      setLoader(true);
       const data = await fetchArticlesWithTopic(newTopic);
       setPhotos(data);
     } catch (error) {
