@@ -1,7 +1,13 @@
-const ImageCard = ({ photo }) => {
+import s from "./ImageCard.module.css";
+
+const ImageCard = ({ photo, onClick }) => {
   return (
-    <div>
-      <img src={photo.urls.small} alt={photo.alt_description} />
+    <div onClick={onClick}>
+      <img
+        src={photo.urls.small}
+        alt={photo.alt_description}
+        className={s.image}
+      />
     </div>
   );
 };

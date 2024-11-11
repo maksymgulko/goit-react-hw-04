@@ -1,3 +1,6 @@
+import s from "./SearchBar.module.css";
+import { FaSearch } from "react-icons/fa";
+
 const SearchBar = ({ onSearch }) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -14,16 +17,21 @@ const SearchBar = ({ onSearch }) => {
   };
 
   return (
-    <header>
+    <header className={s.bar}>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="search"
-          autoComplete="off"
-          autoFocus
-          placeholder="Search images and photos"
-        />
-        <button type="submit">Search</button>
+        <div className={s.inputWrapper}>
+          <input
+            type="text"
+            name="search"
+            autoComplete="off"
+            autoFocus
+            placeholder="Search images and photos"
+            className={s.input}
+          />
+          <button type="submit" className={s.searchButton} aria-label="Search">
+            <FaSearch size={20} />
+          </button>
+        </div>
       </form>
     </header>
   );

@@ -7,13 +7,28 @@ import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import SearchBar from "./components/SearchBar/SearchBar";
 import { fetchArticlesWithTopic } from "./imageFetch";
 import { useState } from "react";
+import Modal from "react-modal";
 
 function App() {
+  Modal.setAppElement("#root");
+
   const [photos, setPhotos] = useState([]);
   const [loader, setLoader] = useState(false);
   const [errorMsg, setErrorMsg] = useState(false);
   const [page, setPage] = useState(1);
   const [topic, setTopic] = useState("");
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const openModal = (image) => {
+    setSelectedImage(image);
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+    setSelectedImage(null);
+  };
 
   async function fetchPhotos(newTopic) {
     setPage(1);
@@ -50,7 +65,16 @@ function App() {
   return (
     <>
       <SearchBar onSearch={fetchPhotos} />
-      {errorMsg ? <ErrorMessage /> : <ImageGallery data={photos} />}
+      {errorMsg ? (
+        <ErrorMessage />
+      ) : (
+        <ImageGallery data={photos} getModal={openModal} />
+      )}
+      <ImageModal
+        isOpen={modalIsOpen}
+        selectedImage={selectedImage}
+        onRequestClose={closeModal}
+      />
       {loader && <Loader />}
       {photos.length > 0 && <LoadMoreBtn onAdd={addPhotos} />}
     </>
