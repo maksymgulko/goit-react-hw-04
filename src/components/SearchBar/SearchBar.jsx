@@ -1,5 +1,6 @@
 import s from "./SearchBar.module.css";
 import { FaSearch } from "react-icons/fa";
+import toast, { Toaster } from "react-hot-toast";
 
 const SearchBar = ({ onSearch }) => {
   const handleSubmit = (evt) => {
@@ -8,7 +9,7 @@ const SearchBar = ({ onSearch }) => {
     const topic = form.elements.search.value;
 
     if (form.elements.search.value.trim() === "") {
-      alert("Please enter search term!");
+      toast.error("This didn't work.");
       return;
     }
 
@@ -31,6 +32,7 @@ const SearchBar = ({ onSearch }) => {
           <button type="submit" className={s.searchButton} aria-label="Search">
             <FaSearch size={20} />
           </button>
+          <Toaster />
         </div>
       </form>
     </header>
